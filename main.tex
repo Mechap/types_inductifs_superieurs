@@ -1,0 +1,128 @@
+\documentclass{tufte-handout}
+
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+
+\usepackage[french]{babel}
+
+\usepackage{comment}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\usepackage{mathpartir}
+
+\usepackage{luamplib}
+\everymplib{ beginfig(0); }
+\everyendmplib{ endfig; }
+
+\usepackage{unicode-math}
+\setmainfont{LinLibertine_Rah.ttf}[Ligatures={Common,Rare,TeX}, Numbers=OldStyle]
+\setmathfont{LibertinusMath-Regular.otf}
+\setmonofont{JuliaMono-Bold.ttf}
+
+\title{\huge Types Inductifs Suppérieurs}
+\author{mechap}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\maketitle
+
+\begin{marginfigure}
+\begin{center}
+    \mplibforcehmode
+    \mplibtextextlabel{enable}
+    \begin{mplibcode}
+        input main1.mp;
+    \end{mplibcode}
+\end{center}
+\end{marginfigure}
+
+\begin{abstract}
+    Ce document constitue une introduction aux types inductifs supérieurs en théorie des types homotopiques.
+    Il sera assumé tout au long du présent article que le lecteur a connaissance des ressorts des constructions sémantiques faites en théorie des types, et plus généralement dans les mathématiques constructives.
+\end{abstract}
+
+\hrulefill
+\vspace{10pt}
+
+Supposons, deux catégories de modèles $\mathcal{M}$ et $\mathcal{N}$ qui présentent la même $(\infty,1)$-catégorie $\mathcal{C}$. Alors toutes les opérations de théorie des types sont invariantes homotopiquement parlant, (c'est à dire qu'elles représentent des opérations qui respectent les équivalences homotopiques).
+Ainsi, toutes les constructions typées réalisées dans $\mathcal{M}$ et $\mathcal{N}$ entraînent des résultats équivalents. 
+
+Nous utiliserons ici, l'interprétation des types comme des $\infty$-groupoïdes\sidenote{Un $\infty$-groupoïde est un modèle homotopique abstrait d'espaces topologiques qui consiste en une une $(\infty, 1)$-catégorie. Il s'agit entre autre d'une collection d'objets et de morphismes entre ces objets, ainsi que des morphismes entre ces morphismes, etc\dots qui respectent les lois d'identité, de composition, et d'opération inverse pour chaque $k$-morphisme. } à travers le modèle géométrique utilisant les Kan complexes qui sont des objets fibrés.
+
+L'introduction des types inductifs supérieurs fut motivée par les interprétations homotopiques de la théorie des types dépendants de Martin-Löf comme une manière de construire des types correspondants aux complexes cellulaires, tels que des sphères, des tores, \dots
+
+\vspace{10pt}
+
+\begin{marginfigure}
+\vspace{10pt}
+\begin{center}
+    \mplibforcehmode
+    \mplibtextextlabel{enable}
+    \begin{mplibcode}
+        input main3.mp
+    \end{mplibcode}
+\end{center}
+\end{marginfigure}
+
+\mplibtextextlabel{enable}
+\begin{mplibcode}
+    input main2.mp;
+\end{mplibcode}
+
+Bien qu'il puisse sembler étrange de considérer des \flqq{} constructeurs inductifs \frqq{} qui prennent des valeurs non pas dans le type inductif lui-même mais dans son type identité, il n'est pas difficile d'écrire des règles d'inférences pour de tels types dans le style habituel propre à la théorie des types dépendants, des règles de formation, et d'évaluation.
+
+\begin{marginfigure}
+\begin{mathpar}
+    \inferrule{
+        \inferrule{\Gamma \vdash \mathbb{S}^1\ \mathrm{type}}{\Gamma \vdash x : \mathbb{S}^1} 
+        \and 
+        \Gamma \vdash f : \mathbb{S}^1 \rightarrow \mathcal{U}
+    }{\Gamma \vdash f(x) : P(x) : \mathcal{U}}
+\end{mathpar}
+
+\vspace{10pt}
+
+\[ \mathrm{ap}_f : \prod_{x, y : \mathbb{S}^1} (x = y) \rightarrow (f(x) = f(y)) \]
+\end{marginfigure}
+
+Dans le cas de $\mathbb{S}^1$, les termes base et loop sont des règles d'introduction, des constructeurs, tandis que la règle d'évaluation nous indique que pour définir un point $x : \mathbb{S}^1$, il suffit de donner un point $f(\mathrm{base}) : P(\mathrm{base})$ ainsi qu'une translation de la boucle $\mathrm{ap}_f(\mathrm{loop}) : \mathrm{Id}_P^{\mathrm{loop}}(f(\mathrm{base}),f(\mathrm{base}))$.
+
+\newpage
+
+Pour prouver cela, il suffit d'appliquer le principe d'induction de $\mathbb{S}^1$ à la famille de types constant \[ \Gamma \vdash \lambda x.A : \mathbb{S}^1 \rightarrow \mathcal{U} \]
+
+\hrulefill
+
+Nous pouvons maintenant nous intéresser aux types d'ordre supérieur.
+\vspace{5pt}
+
+\begin{marginfigure}
+\vspace{3cm}
+\begin{center}
+    \mplibforcehmode
+    \mplibtextextlabel{enable}
+    \begin{mplibcode}
+        input main5.mp
+    \end{mplibcode}
+\end{center}
+\end{marginfigure}
+
+\mplibforcehmode
+\mplibtextextlabel{enable}
+\begin{mplibcode}
+    input main6.mp;
+\end{mplibcode}
+
+\begin{comment}
+Les types inductifs supérieurs sont une généralisation des types inductifs qui permettent aux constructeurs de produire non seulement des points du type défini, mais aussi des éléments des types identités itérés.
+En ce sens, ils constituent une implémentation
+\end{comment}
+
+\end{document}
+
